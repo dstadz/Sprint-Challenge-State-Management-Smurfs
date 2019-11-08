@@ -1,24 +1,25 @@
 import React from "react";
-
-import {NewSmurfForm} from './NewSmurfForm'
+import {connect} from 'react-redux'
+import NewSmurfForm from './NewSmurfForm'
 import SmurfList from './SmurfList'
+import {fetchSmurfs} from './actions/actions'
 import "./App.css";
 
 
 //console.log(state)
-const App = (props) => {
+const App = () => {
 
   return (
     <div className="App">
       <h1>SMURFS! 2.0 W/ Redux</h1>
-      <div>Welcome to your state management version of Smurfs!</div>
-      <div>Start inside of your `src/index.js` file!</div>
-      <div>Have fun!</div>
+ 
       <NewSmurfForm />
       <SmurfList />
     </div>
   );
 }
 
-
-export default App;
+const mapDispatchToProps = dispatch => ({
+  fetchSmurfs: smurfs => dispatch(fetchSmurfs(smurfs))
+})
+export default connect(null, mapDispatchToProps )(App);

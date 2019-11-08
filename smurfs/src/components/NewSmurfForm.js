@@ -1,6 +1,6 @@
 import React, {useReducer, useState} from 'react'
-import {initialState, reducer} from './reducer/reducer'
-import axios from 'axios'
+import { connect } from "react-redux";
+
 
 
 
@@ -15,8 +15,8 @@ const setSmurfCreator = (name,age,height) => {
 
 
 
-export  const NewSmurfForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const NewSmurfForm = (props) => {
+  console.log(props)
   const [name, setName] = useState("default");
   const [age, setAge] = useState(150);
   const [height, setHeight] = useState(80);
@@ -28,7 +28,7 @@ export  const NewSmurfForm = () => {
   const handleHeightChange = event => {setHeight(event.target.value)};
 
   const saveSmurf = () => {
-    dispatch(setSmurfCreator(name, age, height));
+    props.dispatch(setSmurfCreator(name, age, height));
     //axios//////////////////////////////////////////////////////////////////////////////////////////////
   };
   return (
@@ -57,3 +57,9 @@ export  const NewSmurfForm = () => {
     </div>
   );
 }
+
+
+const mapStateToProps = state => ({
+  ...state
+})
+export default connect(mapStateToProps)(NewSmurfForm);
