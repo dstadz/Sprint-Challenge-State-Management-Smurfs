@@ -29,6 +29,7 @@ export function fetchSmurfs() {
     // This is not required by thunk middleware, but it is convenient for us.
 
     return fetch(`http://localhost:3333/smurfs`)
+    console.log('fetching')
       .then(response => response.json())
       .then(json =>
         // We can dispatch many times!

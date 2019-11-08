@@ -1,8 +1,11 @@
-// import {
+ import {
 //   FETCH_SMURF_LOADING,
-//   FETCH_SMURF_SUCCESS,
+   FETCH_SMURF_SUCCESS,
 //   FETCH_SMURF_FAILED
-// } from "../actions";
+ } from "../actions/actions";
+import axios from 'axios'
+
+
 
 export const initialState = {
   smurfs: [{"name":"Brainey","age":200,"height":"5cm","id":0}],
@@ -14,8 +17,16 @@ export function reducer(state = initialState, action) {
   console.log("reducer", action);
   switch (action.type) {
     case "SET_SMURF":
-      const newSmurf = {...action.payload, id:state.smurfs.length}
+      const newSmurf = {...action.payload/*, id:state.smurfs.length*/}
       console.log(newSmurf)
+      axios
+      .post(`http://localhost:3333/smurfs`, newSmurf)
+      .then(res => {
+        console.log(res);
+      })
+      .catch( err => console.log(err))
+
+
       return { ...state, smurfs: [...state.smurfs, newSmurf]};
     // case FETCH_SMURF_LOADING:
     //   return {
@@ -23,13 +34,13 @@ export function reducer(state = initialState, action) {
     //     isFetching: true,
     //     error: null
     //   };
-    // case FETCH_SMURF_SUCCESS:
-    //   return {
-    //     ...state,
-    //     SMURF: action.payload,
-    //     isFetching: false,
-    //     error: null
-    //   };
+    case FETCH_SMURF_SUCCESS:
+      return {
+        ...state,
+        SMURF: action.payload,
+        isFetching: false,
+        error: null
+      };
     // case FETCH_SMURF_FAILED:
     //   return {
     //     ...state,

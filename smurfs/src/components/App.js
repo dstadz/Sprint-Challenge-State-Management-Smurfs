@@ -7,7 +7,6 @@ import "./App.css";
 
 //console.log(state)
 const App = (props) => {
-  console.log(props)
 
   return (
     <div className="App">

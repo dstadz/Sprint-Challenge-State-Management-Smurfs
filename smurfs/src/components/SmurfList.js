@@ -1,22 +1,38 @@
 import React, {useReducer} from 'react'
 import { connect } from "react-redux";
-import {fetchSmurfs} from './actions'
- import {reducer} from '../components/reducer'
+import {fetchSmurfs} from './actions/actions'
+ import {reducer} from './reducer/reducer'
+ import axios from 'axios'
 
 
 
-
-
-
- const SmurfList = (props) => {
-   console.log(props.smurfs)
-   const [state, dispatch] = useReducer(reducer, props.smurfs);
+//console.log(state)
+ axios
+ .get(`http://localhost:3333/smurfs/`)
+ .then(res => {
+   const smurfs = res.data;
+   return smurfs
+  })
+  .catch( err => console.log(err))
+  
+  
+  
+  
+  
+  //console.log(smurfs)
+ const SmurfList = (smurfs) => {
+   console.log(smurfs)
+   const [state, dispatch] = useReducer(reducer, smurfs);
 
 
   return (
     <div className="container">
       <>
-      <button onClick={() => props.dispatch(fetchSmurfs())}>Get Data</button>
+      
+
+
+
+      {/*
       {props.isFetching && <div>⏰</div>}
       {props.error && <div>{props.error.message}</div>}
       <ul>
@@ -26,6 +42,7 @@ import {fetchSmurfs} from './actions'
           </li>
         ))}
       </ul>
+        */}
       </>
       
     </div>
@@ -35,13 +52,8 @@ import {fetchSmurfs} from './actions'
 
 
 
-const mapDispatchToProps = {
-  // Action Creators go here!
-  fetchSmurfs
-};
+const mapStateToProps = state => ({
+  ...state
+})
 
-export default connect(state => {
-  console.log("mapStateToProps.STATE", state);
-  return state;
-  // return { isFetching: state.isFetching, pokemon: state.pokemon };
-})(SmurfList);
+export default connect(mapStateToProps)(SmurfList);

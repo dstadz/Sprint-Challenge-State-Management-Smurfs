@@ -1,5 +1,6 @@
 import React, {useReducer, useState} from 'react'
-import {initialState, reducer} from '../components/reducer'
+import {initialState, reducer} from './reducer/reducer'
+import axios from 'axios'
 
 
 
@@ -17,10 +18,9 @@ const setSmurfCreator = (name,age,height) => {
 export  const NewSmurfForm = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [name, setName] = useState("default");
-  const [age, setAge] = useState(0);
-  const [height, setHeight] = useState(0);
+  const [age, setAge] = useState(150);
+  const [height, setHeight] = useState(80);
 
-  console.log(state)
 
   //handlers
   const handleNameChange = event => {setName(event.target.value)};
@@ -29,6 +29,7 @@ export  const NewSmurfForm = () => {
 
   const saveSmurf = () => {
     dispatch(setSmurfCreator(name, age, height));
+    //axios//////////////////////////////////////////////////////////////////////////////////////////////
   };
   return (
     <div className="container">
